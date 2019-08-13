@@ -77,7 +77,7 @@ void PIN_MANAGER_Initialize (void)
     TRISA = 0x001F;
     TRISB = 0xFF7D;
     TRISC = 0xFEFF;
-    TRISD = 0xFFFF;
+    TRISD = 0xDFFF;
     TRISE = 0xFF80;
 
     /****************************************************************************
@@ -107,7 +107,7 @@ void PIN_MANAGER_Initialize (void)
      * Setting the Analog/Digital Configuration SFR(s)
      ***************************************************************************/
     ANSELA = 0x0017;
-    ANSELB = 0x0089;
+    ANSELB = 0x000D;
     ANSELC = 0x008F;
     ANSELD = 0x0400;
 
@@ -118,9 +118,10 @@ void PIN_MANAGER_Initialize (void)
     __builtin_write_RPCON(0x0000); // unlock PPS
 
     RPINR20bits.SDI1R = 0x0039;    //RC9->SPI1:SDI1
-    RPOR12bits.RP56R = 0x0006;    //RC8->SPI1:SCK1
-    RPINR20bits.SCK1R = 0x0038;    //RC8->SPI1:SCK1
     RPOR3bits.RP39R = 0x0007;    //RB7->SPI1:SS1
+    RPINR20bits.SCK1R = 0x0038;    //RC8->SPI1:SCK1
+    RPINR0bits.INT1R = 0x002E;    //RB14->EXT_INT:INT1
+    RPOR12bits.RP56R = 0x0006;    //RC8->SPI1:SCK1
 
     __builtin_write_RPCON(0x0800); // lock PPS
 

@@ -49,6 +49,8 @@
  */
 
 #include "ext_int.h"
+#include "tmr1.h"
+#include "pin_manager.h"
 
 //***User Area Begin->code: Add External Interrupt handler specific headers 
 
@@ -58,23 +60,26 @@
    Section: External Interrupt Handlers
 */
  
- void __attribute__ ((weak)) EX_INT0_CallBack(void)
+ void __attribute__ ((weak)) EX_INT1_CallBack(void)
 {
-    // Add your custom callback code here
+     LED_D9_Toggle();
+     //TMR1_Start();
+     /*Agregar inicio de conversion ADC*/
 }
 
 /**
-  Interrupt Handler for EX_INT0 - INT0
+  Interrupt Handler for EX_INT1 - INT1
 */
-void __attribute__ ( ( interrupt, no_auto_psv ) ) _INT0Interrupt(void)
+void __attribute__ ( ( interrupt, no_auto_psv ) ) _INT1Interrupt(void)
 {
-    //***User Area Begin->code: External Interrupt 0***
+    //***User Area Begin->code: External Interrupt 1***
 	
-	EX_INT0_CallBack();
+	EX_INT1_CallBack();
     
-	//***User Area End->code: External Interrupt 0***
-    EX_INT0_InterruptFlagClear();
+	//***User Area End->code: External Interrupt 1***
+    EX_INT1_InterruptFlagClear();
 }
+
 /**
     Section: External Interrupt Initializers
  */
@@ -82,17 +87,19 @@ void __attribute__ ( ( interrupt, no_auto_psv ) ) _INT0Interrupt(void)
     void EXT_INT_Initialize(void)
 
     Initializer for the following external interrupts
-    INT0
+    INT1
+    
 */
 void EXT_INT_Initialize(void)
 {
     /*******
-     * INT0
+     * INT1
      * Clear the interrupt flag
      * Set the external interrupt edge detect
      * Enable the interrupt, if enabled in the UI. 
      ********/
-    EX_INT0_InterruptFlagClear();   
-    EX_INT0_PositiveEdgeSet();
-    EX_INT0_InterruptEnable();
+    EX_INT1_InterruptFlagClear();   
+    EX_INT1_PositiveEdgeSet();
+    EX_INT1_InterruptEnable();
+
 }

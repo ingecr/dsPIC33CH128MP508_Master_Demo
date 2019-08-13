@@ -46,15 +46,17 @@
 #include "clock.h"
 #include "system.h"
 #include "system_types.h"
-#include "delay.h"
-#include "ext_int.h"
-#include "drivers/i2c_simple_master.h"
-#include "spi1.h"
 #include "Thermo5Drivers/Thermo5.h"
-#include "i2c1_driver.h"
+#include "drivers/i2c_simple_master.h"
+#include "delay.h"
 #include "drivers/i2c_master.h"
+#include "spi1.h"
 #include "interrupt_manager.h"
 #include "traps.h"
+#include "ext_int.h"
+#include "i2c1_driver.h"
+#include "tmr1.h"
+#include "../phase_control.h"
 
 void SYSTEM_Initialize(void)
 {
@@ -64,8 +66,10 @@ void SYSTEM_Initialize(void)
     SPI1_Initialize();
     Thermo5_Initialize();
     EXT_INT_Initialize();
+    TMR1_Initialize();
     INTERRUPT_GlobalEnable();
     SYSTEM_CORCONModeOperatingSet(CORCON_MODE_PORVALUES);
+    phaseControl_Initialize();
 }
 
 /**

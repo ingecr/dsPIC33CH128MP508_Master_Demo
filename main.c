@@ -56,17 +56,11 @@
 #include "mcc_generated_files/pin_manager.h"
 #include "LCD/MAX31855_API.h"
 #include "LCD/lcd.h"
+#include "mcc_generated_files/tmr1.h"
 
 
 #define FCY 8000000UL
-#define LED_D10_TRIS    TRISEbits.TRISE7
-#define LED_D10_LAT     LATEbits.LATE7
-#define LED_ON  1
-#define LED_OFF 0
 
-#define INPUT  1
-#define OUTPUT 0
- 
 
 //uint16_t internal_temp  =   0;
 //uint16_t temp_1         =   0;
@@ -82,8 +76,11 @@ double temp_2         =   0;
 double temp_3         =   0;
 
 
+
+
+
 int main(void)
-{   //LED_D10_TRIS = INPUT;
+{   
     // initialize the device
     SYSTEM_Initialize();
     LCD_Initialize ();
