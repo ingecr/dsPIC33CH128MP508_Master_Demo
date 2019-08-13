@@ -54,7 +54,9 @@
 #include "mcc_generated_files/Thermo5Drivers/Thermo5.h"
 #include "mcc_generated_files/delay.h"
 #include "mcc_generated_files/pin_manager.h"
+#include "LCD/MAX31855_API.h"
 #include "LCD/lcd.h"
+
 
 #define FCY 8000000UL
 #define LED_D10_TRIS    TRISEbits.TRISE7
@@ -66,10 +68,19 @@
 #define OUTPUT 0
  
 
-uint16_t internal_temp  =   0;
-uint16_t temp_1         =   0;
-uint16_t temp_2         =   0;
-uint16_t temp_3         =   0;
+//uint16_t internal_temp  =   0;
+//uint16_t temp_1         =   0;
+//uint16_t temp_2         =   0;
+//uint16_t temp_3         =   0;
+
+uint16_t temp_thermopar =   0;
+uint16_t temp_internal  =   0;
+
+double internal_temp  =   0;
+double temp_1         =   0;
+double temp_2         =   0;
+double temp_3         =   0;
+
 
 int main(void)
 {   //LED_D10_TRIS = INPUT;
@@ -79,13 +90,27 @@ int main(void)
     printf("\fThermo5 Example \r\n Temperatures");
     while (1)
     {
-      internal_temp =   (uint16_t)Thermo5_ReadTemperature(INTERNAL_DIODE);
-      temp_1        =   (uint16_t)Thermo5_ReadTemperature(DIODE_1); 
-      temp_2        =   (uint16_t)Thermo5_ReadTemperature(DIODE_2);
-      temp_3        =   (uint16_t)Thermo5_ReadTemperature(DIODE_3);
-      printf("\f0:%d(c) 1:%d(c)\r\n2:%d(c) 3:%d(c)",internal_temp,temp_1,temp_2,temp_3);
-      DELAY_milliseconds(100);
-      //LED_D10_LAT ^= 1 ;
+      
+//        internal_temp =   (uint16_t)Thermo5_ReadTemperature(INTERNAL_DIODE);
+//        temp_1        =   (uint16_t)Thermo5_ReadTemperature(DIODE_1); 
+//        temp_2        =   (uint16_t)Thermo5_ReadTemperature(DIODE_2);
+//        temp_3        =   (uint16_t)Thermo5_ReadTemperature(DIODE_3);
+//        printf("\f0:%d(c) 1:%d(c)\r\n2:%d(c) 3:%d(c)",internal_temp,temp_1,temp_2,temp_3);
+        
+        internal_temp =   Thermo5_ReadTemperature(INTERNAL_DIODE);
+        temp_1        =   Thermo5_ReadTemperature(DIODE_1); 
+        temp_2        =   Thermo5_ReadTemperature(DIODE_2);
+        temp_3        =   Thermo5_ReadTemperature(DIODE_3);
+        printf("\f0:%1.5f(c)\r\n1:%1.5f(c)",internal_temp,temp_1);
+        DELAY_milliseconds(500);
+        printf("\f2:%1.5f(c)\r\n3:%1.5f(c)",temp_2,temp_3);
+        DELAY_milliseconds(500);
+        
+        /*MAX31855_temperatures extracion*/
+        get_MAX31855_temperatures(&temp_thermopar, &temp_internal);
+        printf("\fThermoCo:%d(c)\r\nInternal:%d(c)",temp_thermopar,temp_internal);
+        DELAY_milliseconds(500);
+
       LED_D4_Toggle();
     }
     return 1; 

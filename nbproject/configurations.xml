@@ -34,7 +34,9 @@
         <itemPath>mcc_generated_files/Thermo5_example.h</itemPath>
         <itemPath>mcc_generated_files/system.h</itemPath>
         <itemPath>mcc_generated_files/ext_int.h</itemPath>
+        <itemPath>mcc_generated_files/spi1.h</itemPath>
       </logicalFolder>
+      <itemPath>LCD/MAX31855_API.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -71,8 +73,10 @@
         <itemPath>mcc_generated_files/delay.c</itemPath>
         <itemPath>mcc_generated_files/Thermo5_example.c</itemPath>
         <itemPath>mcc_generated_files/ext_int.c</itemPath>
+        <itemPath>mcc_generated_files/spi1.c</itemPath>
       </logicalFolder>
       <itemPath>main.c</itemPath>
+      <itemPath>LCD/MAX31855_API.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -139,7 +143,7 @@
         <property key="enable-short-double" value="false"/>
         <property key="enable-symbols" value="true"/>
         <property key="enable-unroll-loops" value="false"/>
-        <property key="extra-include-directories" value="LCD"/>
+        <property key="extra-include-directories" value="mcc_generated_files;LCD"/>
         <property key="isolate-each-function" value="false"/>
         <property key="keep-inline" value="false"/>
         <property key="oXC16gcc-align-arr" value="false"/>

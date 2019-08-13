@@ -46,20 +46,22 @@
 #include "clock.h"
 #include "system.h"
 #include "system_types.h"
-#include "drivers/i2c_simple_master.h"
-#include "drivers/i2c_master.h"
-#include "Thermo5Drivers/Thermo5.h"
-#include "interrupt_manager.h"
-#include "traps.h"
 #include "delay.h"
 #include "ext_int.h"
+#include "drivers/i2c_simple_master.h"
+#include "spi1.h"
+#include "Thermo5Drivers/Thermo5.h"
 #include "i2c1_driver.h"
+#include "drivers/i2c_master.h"
+#include "interrupt_manager.h"
+#include "traps.h"
 
 void SYSTEM_Initialize(void)
 {
     PIN_MANAGER_Initialize();
-    INTERRUPT_Initialize();
     CLOCK_Initialize();
+    INTERRUPT_Initialize();
+    SPI1_Initialize();
     Thermo5_Initialize();
     EXT_INT_Initialize();
     INTERRUPT_GlobalEnable();

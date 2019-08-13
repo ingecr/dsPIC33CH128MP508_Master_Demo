@@ -52,16 +52,17 @@
 #include "pin_manager.h"
 #include <stdint.h>
 #include <stdbool.h>
-#include "drivers/i2c_simple_master.h"
-#include "drivers/i2c_master.h"
 #include "reset.h"
-#include "watchdog.h"
-#include "Thermo5Drivers/Thermo5.h"
-#include "interrupt_manager.h"
-#include "traps.h"
 #include "delay.h"
 #include "ext_int.h"
+#include "drivers/i2c_simple_master.h"
+#include "spi1.h"
+#include "Thermo5Drivers/Thermo5.h"
+#include "watchdog.h"
 #include "i2c1_driver.h"
+#include "drivers/i2c_master.h"
+#include "interrupt_manager.h"
+#include "traps.h"
 
 #ifndef _XTAL_FREQ
 #define _XTAL_FREQ  8000000UL
