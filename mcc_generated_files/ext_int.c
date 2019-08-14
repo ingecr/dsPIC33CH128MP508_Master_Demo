@@ -62,8 +62,9 @@
  
  void __attribute__ ((weak)) EX_INT1_CallBack(void)
 {
-     LED_D9_Toggle();
-     //TMR1_Start();
+     //LED_D9_Toggle();
+     //LED_D9_SetHigh();
+     TMR1_Start();
      /*Agregar inicio de conversion ADC*/
 }
 

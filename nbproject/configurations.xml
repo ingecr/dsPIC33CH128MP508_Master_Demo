@@ -36,6 +36,7 @@
         <itemPath>mcc_generated_files/ext_int.h</itemPath>
         <itemPath>mcc_generated_files/spi1.h</itemPath>
         <itemPath>mcc_generated_files/tmr1.h</itemPath>
+        <itemPath>mcc_generated_files/adc.h</itemPath>
       </logicalFolder>
       <itemPath>LCD/MAX31855_API.h</itemPath>
       <itemPath>phase_control.h</itemPath>
@@ -77,6 +78,7 @@
         <itemPath>mcc_generated_files/ext_int.c</itemPath>
         <itemPath>mcc_generated_files/spi1.c</itemPath>
         <itemPath>mcc_generated_files/tmr1.c</itemPath>
+        <itemPath>mcc_generated_files/adc.c</itemPath>
       </logicalFolder>
       <itemPath>main.c</itemPath>
       <itemPath>LCD/MAX31855_API.c</itemPath>
@@ -91,6 +93,7 @@
   </logicalFolder>
   <sourceRootList>
     <Elem>LCD</Elem>
+    <Elem>mcc_generated_files</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -147,7 +150,7 @@
         <property key="enable-short-double" value="false"/>
         <property key="enable-symbols" value="true"/>
         <property key="enable-unroll-loops" value="false"/>
-        <property key="extra-include-directories" value="mcc_generated_files;LCD"/>
+        <property key="extra-include-directories" value="LCD;mcc_generated_files"/>
         <property key="isolate-each-function" value="false"/>
         <property key="keep-inline" value="false"/>
         <property key="oXC16gcc-align-arr" value="false"/>

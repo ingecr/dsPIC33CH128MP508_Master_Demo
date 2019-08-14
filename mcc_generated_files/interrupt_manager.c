@@ -52,6 +52,8 @@
 */
 void INTERRUPT_Initialize (void)
 {
+    // Global Interrupt
+        //INTCON2bits.GIE = 1;
     //    INT3I: External Interrupt 3
     //    Priority: 1
         IPC6bits.INT3IP = 1;
@@ -66,5 +68,5 @@ void INTERRUPT_Initialize (void)
         IPC4bits.SI2C1IP = 1;
     //    TI: Timer 1
     //    Priority: 1
-        IPC0bits.T1IP = 1;
+        IPC0bits.T1IP = 7;
 }

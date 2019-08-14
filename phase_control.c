@@ -25,23 +25,23 @@ static PHASE_OBJ phase_obj;
 
 void phaseControl_handler(void){
     
-    phase_obj.accumulate_counts = TMR1_SoftwareCounterGet();
+    //phase_obj.accumulate_counts = TMR1_SoftwareCounterGet();
     if(phase_obj.accumulate_counts == phase_obj.phase_reference ){
         
         TRIAC_TRIGGER_SetLow();
     }
     if(phase_obj.accumulate_counts >= 4090 ){
-    
+        
         TRIAC_TRIGGER_SetHigh();
         TMR1_Stop();
         TMR1_SoftwareCounterClear(); 
     }
-
+    LED_D9_SetHigh();
 }
 
 void TMR1_Handler(void){
     
-    PR1 = 0x07;
+    //LED_D9_SetHigh();
     phaseControl_handler();
 }
 void phaseControl_SetReference(uint16_t phaseReference){
@@ -55,9 +55,8 @@ void phaseControl_Initialize(void){
     phase_obj.accumulate_counts = 0;
     phase_obj.negativeDutyCycle = 0;
     phase_obj.phase_reference   = 0;
-    
-    TMR1_Stop();
-    TMR1_SetInterruptHandler(&TMR1_Handler);
+   
+    //TMR1_SetInterruptHandler(&TMR1_Handler);
 }
 
 

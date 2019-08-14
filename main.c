@@ -57,6 +57,8 @@
 #include "LCD/MAX31855_API.h"
 #include "LCD/lcd.h"
 #include "mcc_generated_files/tmr1.h"
+#include "mcc_generated_files/adc.h"
+
 
 
 #define FCY 8000000UL
@@ -94,19 +96,21 @@ int main(void)
 //        temp_3        =   (uint16_t)Thermo5_ReadTemperature(DIODE_3);
 //        printf("\f0:%d(c) 1:%d(c)\r\n2:%d(c) 3:%d(c)",internal_temp,temp_1,temp_2,temp_3);
         
-        internal_temp =   Thermo5_ReadTemperature(INTERNAL_DIODE);
-        temp_1        =   Thermo5_ReadTemperature(DIODE_1); 
-        temp_2        =   Thermo5_ReadTemperature(DIODE_2);
-        temp_3        =   Thermo5_ReadTemperature(DIODE_3);
-        printf("\f0:%1.5f(c)\r\n1:%1.5f(c)",internal_temp,temp_1);
-        DELAY_milliseconds(500);
-        printf("\f2:%1.5f(c)\r\n3:%1.5f(c)",temp_2,temp_3);
-        DELAY_milliseconds(500);
+//        internal_temp =   Thermo5_ReadTemperature(INTERNAL_DIODE);
+//        temp_1        =   Thermo5_ReadTemperature(DIODE_1); 
+//        temp_2        =   Thermo5_ReadTemperature(DIODE_2);
+//        temp_3        =   Thermo5_ReadTemperature(DIODE_3);
+//        printf("\f0:%1.5f(c)\r\n1:%1.5f(c)",internal_temp,temp_1);
+//        DELAY_milliseconds(100);
+//        printf("\f2:%1.5f(c)\r\n3:%1.5f(c)",temp_2,temp_3);
+//        DELAY_milliseconds(100);
         
         /*MAX31855_temperatures extracion*/
-        get_MAX31855_temperatures(&temp_thermopar, &temp_internal);
-        printf("\fThermoCo:%d(c)\r\nInternal:%d(c)",temp_thermopar,temp_internal);
-        DELAY_milliseconds(500);
+        
+//        get_MAX31855_temperatures(&temp_thermopar, &temp_internal);
+//        printf("\fThermoCo:%d(c)\r\nInternal:%d(c)",temp_thermopar,temp_internal);
+        printf("\fCount:%d\r\nADC:%d",TMR1_SoftwareCounterGet(),ADC_Read12bitAverage(ADC_CHANNEL_POTENTIOMETER, 16));
+        DELAY_milliseconds(100);
 
       LED_D4_Toggle();
     }

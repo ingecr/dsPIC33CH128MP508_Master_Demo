@@ -57,6 +57,7 @@
 #include "i2c1_driver.h"
 #include "tmr1.h"
 #include "../phase_control.h"
+#include "adc.h"
 
 void SYSTEM_Initialize(void)
 {
@@ -68,6 +69,7 @@ void SYSTEM_Initialize(void)
     EXT_INT_Initialize();
     TMR1_Initialize();
     INTERRUPT_GlobalEnable();
+    ADC_Initialization();
     SYSTEM_CORCONModeOperatingSet(CORCON_MODE_PORVALUES);
     phaseControl_Initialize();
 }

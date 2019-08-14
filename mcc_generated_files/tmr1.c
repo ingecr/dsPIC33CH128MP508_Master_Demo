@@ -50,6 +50,7 @@
 #include <stdio.h>
 #include "tmr1.h"
 #include "ext_int.h"
+#include "pin_manager.h"
 
 /**
  Section: File specific functions
@@ -79,7 +80,7 @@ typedef struct _TMR_OBJ_STRUCT
     /* Timer Elapsed */
     volatile bool           timerElapsed;
     /*Software Counter value*/
-    volatile uint8_t        count;
+    volatile uint16_t        count;
 
 } TMR_OBJ;
 
@@ -91,15 +92,19 @@ static TMR_OBJ tmr1_obj;
 void __attribute__ ((weak)) TMR1_Call(void)
 {
     // Add your custom callback code here
+    LED_D9_Toggle();
 }
 void TMR1_Initialize (void)
 {
+    //TCKPS 1:1; PRWIP Write complete; TMWIP Write complete; TON disabled; TSIDL disabled; TCS FOSC/2; TECS T1CK; TSYNC disabled; TMWDIS disabled; TGATE disabled; 
+    T1CON = 0x00;
     //TMR 0; 
     TMR1 = 0x00;
     //Period = 0.000002 s; Frequency = 4000000 Hz; PR 7; 
-    PR1 = 0x07;
-    //TCKPS 1:1; PRWIP Write complete; TMWIP Write complete; TON disabled; TSIDL disabled; TCS FOSC/2; TECS T1CK; TSYNC disabled; TMWDIS disabled; TGATE disabled; 
-    T1CON = 0x00;
+    PR1 = 0x61A; /*0x07 ->> Cuentas para interrumpirse 4096 veces durante medio ciclo AC*/ 
+;
+    T1CONbits.TCKPS = 0b10; /*Preescarler 1:64*/ 
+                   
 
     if(TMR1_InterruptHandler == NULL)
     {
@@ -122,16 +127,18 @@ void __attribute__ ( ( interrupt, no_auto_psv ) ) _T1Interrupt (  )
 
     // ticker function call;
     // ticker is 1 -> Callback function gets called everytime this ISR executes
+    IFS0bits.T1IF = false;
+    TMR1 = 0x00;
     if(TMR1_InterruptHandler) 
     { 
            TMR1_InterruptHandler(); 
     }
 
     //***User Area End
-
+    
     tmr1_obj.count++;
     tmr1_obj.timerElapsed = true;
-    IFS0bits.T1IF = false;
+    
 }
 
 void TMR1_Period16BitSet( uint16_t value )
