@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>mcc_generated_files/interrupt_manager.c</url>
+            <bookmark id="1">
+                <name/>
+                <line>52</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/Users/hectorcruz/MPLABXProjects/Catena/dsPiC33Projects/dsPIC33CH128MP508/dsPIC33CH128MP508_Master_Demo.X/main.c</file>
-            <file>file:/Users/hectorcruz/MPLABXProjects/Catena/dsPiC33Projects/dsPIC33CH128MP508/dsPIC33CH128MP508_Master_Demo.X/mcc_generated_files/ext_int.c</file>
-            <file>file:/Users/hectorcruz/MPLABXProjects/Catena/dsPiC33Projects/dsPIC33CH128MP508/dsPIC33CH128MP508_Master_Demo.X/phase_control.h</file>
-            <file>file:/Users/hectorcruz/MPLABXProjects/Catena/dsPiC33Projects/dsPIC33CH128MP508/dsPIC33CH128MP508_Master_Demo.X/phase_control.c</file>
-            <file>file:/Users/hectorcruz/MPLABXProjects/Catena/dsPiC33Projects/dsPIC33CH128MP508/dsPIC33CH128MP508_Master_Demo.X/mcc_generated_files/pin_manager.h</file>
-            <file>file:/Users/hectorcruz/MPLABXProjects/Catena/dsPiC33Projects/dsPIC33CH128MP508/dsPIC33CH128MP508_Master_Demo.X/mcc_generated_files/system.c</file>
-            <file>file:/Users/hectorcruz/MPLABXProjects/Catena/dsPiC33Projects/dsPIC33CH128MP508/dsPIC33CH128MP508_Master_Demo.X/mcc_generated_files/pin_manager.c</file>
-            <file>file:/Users/hectorcruz/MPLABXProjects/Catena/dsPiC33Projects/dsPIC33CH128MP508/dsPIC33CH128MP508_Master_Demo.X/mcc_generated_files/interrupt_manager.c</file>
             <file>file:/Users/hectorcruz/MPLABXProjects/Catena/dsPiC33Projects/dsPIC33CH128MP508/dsPIC33CH128MP508_Master_Demo.X/mcc_generated_files/tmr1.c</file>
+            <file>file:/Users/hectorcruz/MPLABXProjects/Catena/dsPiC33Projects/dsPIC33CH128MP508/dsPIC33CH128MP508_Master_Demo.X/mcc_generated_files/ext_int.c</file>
+            <file>file:/Users/hectorcruz/MPLABXProjects/Catena/dsPiC33Projects/dsPIC33CH128MP508/dsPIC33CH128MP508_Master_Demo.X/mcc_generated_files/pin_manager.c</file>
+            <file>file:/Users/hectorcruz/MPLABXProjects/Catena/dsPiC33Projects/dsPIC33CH128MP508/dsPIC33CH128MP508_Master_Demo.X/mcc_generated_files/system.c</file>
+            <file>file:/Users/hectorcruz/MPLABXProjects/Catena/dsPiC33Projects/dsPIC33CH128MP508/dsPIC33CH128MP508_Master_Demo.X/phase_control.c</file>
+            <file>file:/Users/hectorcruz/MPLABXProjects/Catena/dsPiC33Projects/dsPIC33CH128MP508/dsPIC33CH128MP508_Master_Demo.X/mcc_generated_files/interrupt_manager.c</file>
         </group>
     </open-files>
 </project-private>

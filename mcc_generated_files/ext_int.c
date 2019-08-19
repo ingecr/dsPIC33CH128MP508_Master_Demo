@@ -60,12 +60,11 @@
    Section: External Interrupt Handlers
 */
  
- void __attribute__ ((weak)) EX_INT1_CallBack(void)
+ void EX_INT1_CallBack(void)
 {
-     //LED_D9_Toggle();
-     //LED_D9_SetHigh();
-     TMR1_Start();
-     /*Agregar inicio de conversion ADC*/
+     LED_D7_Toggle();
+     //TMR1_Start();
+
 }
 
 /**

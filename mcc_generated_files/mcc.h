@@ -53,17 +53,17 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "Thermo5Drivers/Thermo5.h"
+#include "watchdog.h"
+#include "spi1.h"
 #include "drivers/i2c_simple_master.h"
+#include "reset.h"
+#include "i2c1_driver.h"
 #include "delay.h"
 #include "drivers/i2c_master.h"
-#include "watchdog.h"
-#include "reset.h"
-#include "spi1.h"
+#include "tmr1.h"
+#include "ext_int.h"
 #include "interrupt_manager.h"
 #include "traps.h"
-#include "ext_int.h"
-#include "i2c1_driver.h"
-#include "tmr1.h"
 
 #ifndef _XTAL_FREQ
 #define _XTAL_FREQ  8000000UL

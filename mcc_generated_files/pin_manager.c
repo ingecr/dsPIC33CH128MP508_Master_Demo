@@ -53,13 +53,9 @@
 #include <stdio.h>
 #include "pin_manager.h"
 
-/**
- Section: File specific functions
-*/
 
-/**
- Section: Driver Interface Function Definitions
-*/
+#define BUTTON    0
+
 void PIN_MANAGER_Initialize (void)
 {
     /****************************************************************************
@@ -81,7 +77,7 @@ void PIN_MANAGER_Initialize (void)
     TRISE = 0xFF80;
 
     /****************************************************************************
-     * Setting the Weak Pull Up and Weak Pull Down SFR(s)
+     * Setting the Wak Pull Up and Weak Pull Down SFR(s)
      ***************************************************************************/
     CNPDA = 0x0000;
     CNPDB = 0x0000;
@@ -117,11 +113,15 @@ void PIN_MANAGER_Initialize (void)
      ***************************************************************************/
     __builtin_write_RPCON(0x0000); // unlock PPS
 
-    RPINR20bits.SDI1R = 0x0039;    //RC9->SPI1:SDI1
-    RPOR3bits.RP39R = 0x0007;    //RB7->SPI1:SS1
+    #if BUTTON
+        RPINR0bits.INT1R = 0x002E;    //RB14->EXT_INT:INT1 (Boton)
+    #else
+        RPINR0bits.INT1R = 0x0035;    //RC5->EXT_INT:INT1
+    #endif
     RPINR20bits.SCK1R = 0x0038;    //RC8->SPI1:SCK1
-    RPINR0bits.INT1R = 0x002E;    //RB14->EXT_INT:INT1
+    RPOR3bits.RP39R = 0x0007;    //RB7->SPI1:SS1
     RPOR12bits.RP56R = 0x0006;    //RC8->SPI1:SCK1
+    RPINR20bits.SDI1R = 0x0039;    //RC9->SPI1:SDI1
 
     __builtin_write_RPCON(0x0800); // lock PPS
 

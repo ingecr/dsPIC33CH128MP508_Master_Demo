@@ -58,65 +58,76 @@
 #include "LCD/lcd.h"
 #include "mcc_generated_files/tmr1.h"
 #include "mcc_generated_files/adc.h"
+#include "phase_control.h"
+#include "mcc_generated_files/interrupt_manager.h"
 
 
 
 #define FCY 8000000UL
+#define TEMP_READ 0
+#define FLOAT     1
 
 
-//uint16_t internal_temp  =   0;
-//uint16_t temp_1         =   0;
-//uint16_t temp_2         =   0;
-//uint16_t temp_3         =   0;
+#if !FLOAT
+    uint16_t internal_temp  =   0;
+    uint16_t temp_1         =   0;
+    uint16_t temp_2         =   0;
+    uint16_t temp_3         =   0;
+#else
+    double internal_temp  =   0;
+    double temp_1         =   0;
+    double temp_2         =   0;
+    double temp_3         =   0;
+#endif
 
 uint16_t temp_thermopar =   0;
 uint16_t temp_internal  =   0;
 
-double internal_temp  =   0;
-double temp_1         =   0;
-double temp_2         =   0;
-double temp_3         =   0;
-
-
-
-
 
 int main(void)
 {   
-    // initialize the device
+    
+//    INTERRUPT_GlobalDisable(); 
     SYSTEM_Initialize();
     LCD_Initialize ();
-    printf("\fThermo5 Example \r\n Temperatures");
+    
+    printf("\fPhase Control \r\n1.0");
+//    INTERRUPT_GlobalEnable();
     while (1)
     {
-      
-//        internal_temp =   (uint16_t)Thermo5_ReadTemperature(INTERNAL_DIODE);
-//        temp_1        =   (uint16_t)Thermo5_ReadTemperature(DIODE_1); 
-//        temp_2        =   (uint16_t)Thermo5_ReadTemperature(DIODE_2);
-//        temp_3        =   (uint16_t)Thermo5_ReadTemperature(DIODE_3);
-//        printf("\f0:%d(c) 1:%d(c)\r\n2:%d(c) 3:%d(c)",internal_temp,temp_1,temp_2,temp_3);
         
-//        internal_temp =   Thermo5_ReadTemperature(INTERNAL_DIODE);
-//        temp_1        =   Thermo5_ReadTemperature(DIODE_1); 
-//        temp_2        =   Thermo5_ReadTemperature(DIODE_2);
-//        temp_3        =   Thermo5_ReadTemperature(DIODE_3);
-//        printf("\f0:%1.5f(c)\r\n1:%1.5f(c)",internal_temp,temp_1);
-//        DELAY_milliseconds(100);
-//        printf("\f2:%1.5f(c)\r\n3:%1.5f(c)",temp_2,temp_3);
+//        uint16_t ADC_Value = ADC_Read12bitAverage(ADC_CHANNEL_POTENTIOMETER, 10);
+//        phaseControl_SetReference(ADC_Value);
+//        //printf("\fCount:%d\r\nADC:%d",TMR1_SoftwareCounterGet(),ADC_Value);
 //        DELAY_milliseconds(100);
         
-        /*MAX31855_temperatures extracion*/
+        #if TEMP_READ
+            
+            #if !FLOAT
+                internal_temp =   (uint16_t)Thermo5_ReadTemperature(INTERNAL_DIODE);
+                temp_1        =   (uint16_t)Thermo5_ReadTemperature(DIODE_1); 
+                temp_2        =   (uint16_t)Thermo5_ReadTemperature(DIODE_2);
+                temp_3        =   (uint16_t)Thermo5_ReadTemperature(DIODE_3);
+                printf("\f0:%d(c) 1:%d(c)\r\n2:%d(c) 3:%d(c)",internal_temp,temp_1,temp_2,temp_3);
+                DELAY_milliseconds(100);
+            #else
+                internal_temp =   Thermo5_ReadTemperature(INTERNAL_DIODE);
+                temp_1        =   Thermo5_ReadTemperature(DIODE_1); 
+                temp_2        =   Thermo5_ReadTemperature(DIODE_2);
+                temp_3        =   Thermo5_ReadTemperature(DIODE_3);
+                printf("\f0:%1.5f(c)\r\n1:%1.5f(c)",internal_temp,temp_1);
+                DELAY_milliseconds(100);
+                printf("\f2:%1.5f(c)\r\n3:%1.5f(c)",temp_2,temp_3);
+                DELAY_milliseconds(100);
+            #endif
+                
+            /*MAX31855_temperatures extracion*/
+            get_MAX31855_temperatures(&temp_thermopar, &temp_internal);
+            printf("\fThermoCo:%d(c)\r\nInternal:%d(c)",temp_thermopar,temp_internal);
+            DELAY_milliseconds(500);
+        #endif
         
-//        get_MAX31855_temperatures(&temp_thermopar, &temp_internal);
-//        printf("\fThermoCo:%d(c)\r\nInternal:%d(c)",temp_thermopar,temp_internal);
-        printf("\fCount:%d\r\nADC:%d",TMR1_SoftwareCounterGet(),ADC_Read12bitAverage(ADC_CHANNEL_POTENTIOMETER, 16));
-        DELAY_milliseconds(100);
-
-      LED_D4_Toggle();
+     
     }
     return 1; 
 }
-/**
- End of File
-*/
-

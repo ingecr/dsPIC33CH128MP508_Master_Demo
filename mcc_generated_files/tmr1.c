@@ -91,8 +91,8 @@ static TMR_OBJ tmr1_obj;
 */
 void __attribute__ ((weak)) TMR1_Call(void)
 {
-    // Add your custom callback code here
-    LED_D9_Toggle();
+ 
+    
 }
 void TMR1_Initialize (void)
 {
@@ -101,9 +101,9 @@ void TMR1_Initialize (void)
     //TMR 0; 
     TMR1 = 0x00;
     //Period = 0.000002 s; Frequency = 4000000 Hz; PR 7; 
-    PR1 = 0x61A; /*0x07 ->> Cuentas para interrumpirse 4096 veces durante medio ciclo AC*/ 
-;
-    T1CONbits.TCKPS = 0b10; /*Preescarler 1:64*/ 
+    PR1 = 0x07; /*0x61A ->> Cuentas para interrumpirse 4096 veces durante medio ciclo AC*/ 
+
+    //T1CONbits.TCKPS = 0b00; /*Preescarler 1:64*/ 
                    
 
     if(TMR1_InterruptHandler == NULL)
@@ -190,7 +190,7 @@ void TMR1_Start( void )
 }
 
 void TMR1_Stop( void )
-{
+{   TMR1 = 0x00;
     /* Stop the Timer */
     T1CONbits.TON = false;
 
