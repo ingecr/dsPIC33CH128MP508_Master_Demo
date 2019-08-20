@@ -58,15 +58,15 @@
 #pragma config BSLIM = 8191    //Boot Segment Flash Page Address Limit bits->8191
 
 // FOSCSEL
-#pragma config FNOSC = FRCDIVN    //Oscillator Source Selection->Internal Fast RC (FRC) Oscillator with postscaler
-#pragma config IESO = OFF    //Two-speed Oscillator Start-up Enable bit->Start up with user-selected oscillator source
+#pragma config FNOSC = FRC    //Oscillator Source Selection->FRC
+#pragma config IESO = OFF//ON    //Two-speed Oscillator Start-up Enable bit->Start up device with FRC, then switch to user-selected oscillator source
 
 // FOSC
-#pragma config POSCMD = NONE    //Primary Oscillator Mode Select bits->Primary Oscillator disabled
-#pragma config OSCIOFNC = OFF    //OSC2 Pin Function bit->OSC2 is clock output
-#pragma config FCKSM = CSDCMD    //Clock Switching Mode bits->Both Clock switching and Fail-safe Clock Monitor are disabled
+#pragma config POSCMD = XT //NONE    //Primary Oscillator Mode Select bits->Primary Oscillator disabled
+#pragma config OSCIOFNC = ON    //OSC2 Pin Function bit->OSC2 is clock output
+#pragma config FCKSM = CSECMD    //Clock Switching Mode bits->Clock switching is enabled,Fail-safe Clock Monitor is disabled
 #pragma config PLLKEN = PLLKEN_ON    //PLLKEN->reserved as PLLKEN_ON
-#pragma config XTCFG = G3    //XT Config->24-32 MHz crystals
+#pragma config XTCFG = G1 //G3    //XT Config->24-32 MHz crystals
 #pragma config XTBST = ENABLE    //XT Boost->Boost the kick-start
 
 // FWDT

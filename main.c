@@ -62,10 +62,9 @@
 #include "mcc_generated_files/interrupt_manager.h"
 
 
-
-#define FCY 8000000UL
-#define TEMP_READ 0
-#define FLOAT     1
+#define ADC_READ    1
+#define TEMP_READ   0
+#define FLOAT       1
 
 
 #if !FLOAT
@@ -86,20 +85,21 @@ uint16_t temp_internal  =   0;
 
 int main(void)
 {   
-    
-//    INTERRUPT_GlobalDisable(); 
+  
     SYSTEM_Initialize();
     LCD_Initialize ();
     
-    printf("\fPhase Control \r\n1.0");
-//    INTERRUPT_GlobalEnable();
+    printf("\fPhase Control \r\n2.0");
+    
     while (1)
-    {
-        
-//        uint16_t ADC_Value = ADC_Read12bitAverage(ADC_CHANNEL_POTENTIOMETER, 10);
-//        phaseControl_SetReference(ADC_Value);
-//        //printf("\fCount:%d\r\nADC:%d",TMR1_SoftwareCounterGet(),ADC_Value);
-//        DELAY_milliseconds(100);
+    {   
+        #if ADC_READ
+            uint16_t ADC_Value = ADC_Read12bitAverage(ADC_CHANNEL_POTENTIOMETER, 10);
+            phaseControl_SetReference(ADC_Value);
+            //printf("\fCount:%d\r\nADC:%d",TMR1_SoftwareCounterGet(),ADC_Value);
+            //DELAY_milliseconds(100);
+        #endif
+
         
         #if TEMP_READ
             
@@ -121,11 +121,12 @@ int main(void)
                 DELAY_milliseconds(100);
             #endif
                 
-            /*MAX31855_temperatures extracion*/
+            /*MAX31855_temperatures extraction*/
             get_MAX31855_temperatures(&temp_thermopar, &temp_internal);
             printf("\fThermoCo:%d(c)\r\nInternal:%d(c)",temp_thermopar,temp_internal);
             DELAY_milliseconds(500);
         #endif
+          
         
      
     }

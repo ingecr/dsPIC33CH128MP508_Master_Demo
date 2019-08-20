@@ -97,7 +97,7 @@ bool i2c1_driver_driver_open(void)
         I2C1CONL = 0x8000;
         
         // Baud Rate Generator Value: I2CBRG 100000;   
-        I2C1BRG = 18;
+        I2C1BRG = 448;
         
         return true;
     }

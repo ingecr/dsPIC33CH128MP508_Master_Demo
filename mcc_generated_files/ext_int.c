@@ -60,10 +60,10 @@
    Section: External Interrupt Handlers
 */
  
- void EX_INT1_CallBack(void)
+ void __attribute__ ((weak)) EX_INT1_CallBack(void)
 {
      LED_D7_Toggle();
-     //TMR1_Start();
+     TMR1_Start();
 
 }
 
@@ -79,7 +79,6 @@ void __attribute__ ( ( interrupt, no_auto_psv ) ) _INT1Interrupt(void)
 	//***User Area End->code: External Interrupt 1***
     EX_INT1_InterruptFlagClear();
 }
-
 /**
     Section: External Interrupt Initializers
  */
@@ -88,7 +87,6 @@ void __attribute__ ( ( interrupt, no_auto_psv ) ) _INT1Interrupt(void)
 
     Initializer for the following external interrupts
     INT1
-    
 */
 void EXT_INT_Initialize(void)
 {
@@ -101,5 +99,4 @@ void EXT_INT_Initialize(void)
     EX_INT1_InterruptFlagClear();   
     EX_INT1_PositiveEdgeSet();
     EX_INT1_InterruptEnable();
-
 }

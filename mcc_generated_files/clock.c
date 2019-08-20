@@ -48,10 +48,22 @@
 
 void CLOCK_Initialize(void)
 {
-    // FRCDIV FRC/1; PLLPRE 1; DOZE 1:8; DOZEN disabled; ROI disabled; 
-    CLKDIV = 0x3001;
-    // PLLFBDIV 150; 
-    PLLFBD = 0x96;
+    /*Below code runs dsPIC33CH128MP508 at 180MHz (90 MIPs) from XT (8MHz xtal) + PLL.
+     *First make sure we are not running from a PLL derived source, when modifying the PLL settings.
+     *This can be accomplished by intentionally switching to a known non-PLL setting, such as FRC. 
+     *Switch to FRC (no divider, no PLL), assuming we aren't already running from that. 
+     */
+    if(OSCCONbits.COSC != 0b000)
+    {
+        __builtin_write_OSCCONH(0x00);  //NOSC = 0b000 = FRC without divider or PLL
+        __builtin_write_OSCCONL((OSCCON & 0x7E) | 0x01);  //Clear CLKLOCK and assert OSWEN = 1 to initiate switchover
+        //Wait for switch over to complete.
+        while(OSCCONbits.COSC != OSCCONbits.NOSC);
+    }
+    // FRCDIV FRC/1; PLLPRE 1; DOZE 1:1; DOZEN disabled; ROI disabled; 
+    CLKDIV = 0x01;
+    // PLLFBDIV 180; 
+    PLLFBD = 0xB4;
     // TUN Center frequency; 
     OSCTUN = 0x00;
     // POST1DIV 1:4; VCODIV FVCO/4; POST2DIV 1:1; 
@@ -84,7 +96,10 @@ void CLOCK_Initialize(void)
     PMD7 = 0x00;
     // DMTMD enabled; CLC3MD enabled; BIASMD enabled; CLC4MD enabled; SENT2MD enabled; SENT1MD enabled; CLC1MD enabled; CLC2MD enabled; 
     PMD8 = 0x00;
-    // CF no clock failure; NOSC FRCDIV; CLKLOCK unlocked; OSWEN Switch is Complete; 
-    __builtin_write_OSCCONH((uint8_t) (0x07));
-    __builtin_write_OSCCONL((uint8_t) (0x00));
+    // CF no clock failure; NOSC PRIPLL; CLKLOCK unlocked; OSWEN Request Switch; 
+    __builtin_write_OSCCONH((uint8_t) (0x03));
+    __builtin_write_OSCCONL((uint8_t) (0x01));
+    // Wait for Clock switch to occur
+    while (OSCCONbits.OSWEN != 0);
+    while (OSCCONbits.LOCK != 1);
 }

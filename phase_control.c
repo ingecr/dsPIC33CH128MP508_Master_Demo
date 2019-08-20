@@ -14,6 +14,7 @@
 #include "LCD/lcd.h"
 
 #define COUNTS_PER_HALF_CYCLE  4096
+#define MOSFET 1
 
 typedef struct _PHASE_OBJ_STRUCT
 { 
@@ -30,34 +31,33 @@ int count = 0;
 void phaseControl_handler(void){
     
     phase_obj.accumulate_counts = TMR1_SoftwareCounterGet();
+    if(phase_obj.phase_reference <10) phase_obj.phase_reference = 10;
     if(phase_obj.accumulate_counts == phase_obj.phase_reference ){
         
-        //TRIAC_TRIGGER_SetLow();
-        //TRIAC_TRIGGER_SetHigh();
-        //LED_D9_SetHigh();
-        
+        #if MOSFET
+                TRIAC_TRIGGER_SetHigh();
+        #else
+                TRIAC_TRIGGER_SetLow();
+        #endif    
     }
-    if(phase_obj.accumulate_counts >= 4090 ){
+    if(phase_obj.accumulate_counts >= 4055 ){
         
-        //TRIAC_TRIGGER_SetHigh();
-        //TRIAC_TRIGGER_SetLow();
-        //LED_D9_SetLow();
+        #if MOSFET
+                TRIAC_TRIGGER_SetLow();
+        #else
+                TRIAC_TRIGGER_SetHigh();
+        #endif
+
         TMR1_Stop();
         TMR1_SoftwareCounterClear();
-        
-        //printf("\fTimerStop %d\n\r",count);
         count ++;
-        
+      
     }
  
 }
 
 void TMR1_Handler(void){
     
-    //LED_D9_Toggle();
-    TRIAC_TRIGGER_SetHigh();
-    TRIAC_TRIGGER_SetLow();
-
     phaseControl_handler();
 }
 void phaseControl_SetReference(uint16_t phaseReference){
@@ -70,7 +70,7 @@ void phaseControl_Initialize(void){
 
     phase_obj.accumulate_counts = 0;
     phase_obj.negativeDutyCycle = 0;
-    phase_obj.phase_reference   = 512;
+    phase_obj.phase_reference   = 4000;
    
     TMR1_SetInterruptHandler(&TMR1_Handler);
 }

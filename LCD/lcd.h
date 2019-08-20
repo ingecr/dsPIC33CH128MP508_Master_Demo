@@ -16,8 +16,7 @@ limitations under the License.
 
 #include <stdint.h>
 #include <stdbool.h>
-
-#define FCY 8000000UL
+#define FCY 180000000UL
 /*********************************************************************
 * Function: bool LCD_Initialize(void);
 *

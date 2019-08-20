@@ -52,21 +52,21 @@
 #include "pin_manager.h"
 #include <stdint.h>
 #include <stdbool.h>
-#include "Thermo5Drivers/Thermo5.h"
-#include "watchdog.h"
-#include "spi1.h"
-#include "drivers/i2c_simple_master.h"
-#include "reset.h"
-#include "i2c1_driver.h"
 #include "delay.h"
-#include "drivers/i2c_master.h"
 #include "tmr1.h"
-#include "ext_int.h"
+#include "reset.h"
+#include "Thermo5Drivers/Thermo5.h"
+#include "drivers/i2c_simple_master.h"
 #include "interrupt_manager.h"
 #include "traps.h"
+#include "watchdog.h"
+#include "ext_int.h"
+#include "i2c1_driver.h"
+#include "spi1.h"
+#include "drivers/i2c_master.h"
 
 #ifndef _XTAL_FREQ
-#define _XTAL_FREQ  8000000UL
+#define _XTAL_FREQ  180000000UL
 #endif
 #define WDT_CLR_KEY 0x5743
 

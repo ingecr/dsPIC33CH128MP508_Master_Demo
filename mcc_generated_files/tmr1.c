@@ -91,8 +91,8 @@ static TMR_OBJ tmr1_obj;
 */
 void __attribute__ ((weak)) TMR1_Call(void)
 {
- 
-    
+    //LED_D9_Toggle();
+    TRIAC_TRIGGER_Toggle();
 }
 void TMR1_Initialize (void)
 {
@@ -100,8 +100,11 @@ void TMR1_Initialize (void)
     T1CON = 0x00;
     //TMR 0; 
     TMR1 = 0x00;
-    //Period = 0.000002 s; Frequency = 4000000 Hz; PR 7; 
-    PR1 = 0x07; /*0x61A ->> Cuentas para interrumpirse 4096 veces durante medio ciclo AC*/ 
+    /*Period = 2.033us s; Frequency = 90Mhz/2; PR 179;
+     *ADC = 12 bits (4096) 
+     * 2.033us*4096 = Half AC Cycle =
+     */
+    PR1 = 0x98; //0xB6; /*0x61A ->> Cuentas para interrumpirse 4096 veces durante medio ciclo AC*/ 
 
     //T1CONbits.TCKPS = 0b00; /*Preescarler 1:64*/ 
                    
