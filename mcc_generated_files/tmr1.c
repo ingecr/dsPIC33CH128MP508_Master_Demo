@@ -104,7 +104,7 @@ void TMR1_Initialize (void)
      *ADC = 12 bits (4096) 
      * 2.033us*4096 = Half AC Cycle =
      */
-    PR1 = 0x98; //0xB6; /*0x61A ->> Cuentas para interrumpirse 4096 veces durante medio ciclo AC*/ 
+    PR1 = 0x98; 
 
     //T1CONbits.TCKPS = 0b00; /*Preescarler 1:64*/ 
                    

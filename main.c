@@ -60,10 +60,11 @@
 #include "mcc_generated_files/adc.h"
 #include "phase_control.h"
 #include "mcc_generated_files/interrupt_manager.h"
+#include "PID.h"
 
 
 #define ADC_READ    1
-#define TEMP_READ   0
+#define TEMP_READ   1
 #define FLOAT       1
 
 
@@ -82,6 +83,10 @@
 uint16_t temp_thermopar =   0;
 uint16_t temp_internal  =   0;
 
+int8_t reference    = 55;
+
+
+
 
 int main(void)
 {   
@@ -95,7 +100,7 @@ int main(void)
     {   
         #if ADC_READ
             uint16_t ADC_Value = ADC_Read12bitAverage(ADC_CHANNEL_POTENTIOMETER, 10);
-            phaseControl_SetReference(ADC_Value);
+            //phaseControl_SetReference(ADC_Value);
             //printf("\fCount:%d\r\nADC:%d",TMR1_SoftwareCounterGet(),ADC_Value);
             //DELAY_milliseconds(100);
         #endif
@@ -115,19 +120,21 @@ int main(void)
                 temp_1        =   Thermo5_ReadTemperature(DIODE_1); 
                 temp_2        =   Thermo5_ReadTemperature(DIODE_2);
                 temp_3        =   Thermo5_ReadTemperature(DIODE_3);
-                printf("\f0:%1.5f(c)\r\n1:%1.5f(c)",internal_temp,temp_1);
-                DELAY_milliseconds(100);
-                printf("\f2:%1.5f(c)\r\n3:%1.5f(c)",temp_2,temp_3);
-                DELAY_milliseconds(100);
+                
+                //printf("\f0:%1.5f(c)\r\n1:%1.5f(c)",internal_temp,temp_1);
+                //DELAY_milliseconds(100);
+                //printf("\f2:%1.5f(c)\r\n3:%1.5f(c)",temp_2,temp_3);
+                //DELAY_milliseconds(100);
             #endif
                 
             /*MAX31855_temperatures extraction*/
             get_MAX31855_temperatures(&temp_thermopar, &temp_internal);
-            printf("\fThermoCo:%d(c)\r\nInternal:%d(c)",temp_thermopar,temp_internal);
-            DELAY_milliseconds(500);
+            
         #endif
-          
-        
+            uint16_t dummy_t = PID((int8_t*)&temp_thermopar,&reference);
+            printf("\fThermo:%d(c)\r\nEntrada:%d(c)",temp_thermopar,dummy_t);
+            phaseControl_SetReference(dummy_t);
+            DELAY_milliseconds(40);
      
     }
     return 1; 

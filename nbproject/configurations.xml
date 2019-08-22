@@ -40,6 +40,7 @@
       </logicalFolder>
       <itemPath>LCD/MAX31855_API.h</itemPath>
       <itemPath>phase_control.h</itemPath>
+      <itemPath>PID.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -83,6 +84,7 @@
       <itemPath>main.c</itemPath>
       <itemPath>LCD/MAX31855_API.c</itemPath>
       <itemPath>phase_control.c</itemPath>
+      <itemPath>PID.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

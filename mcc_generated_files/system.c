@@ -58,6 +58,8 @@
 #include "tmr1.h"
 #include "../phase_control.h"
 #include "adc.h"
+#include "../PID.h"
+
 
 void SYSTEM_Initialize(void)
 {
@@ -72,6 +74,8 @@ void SYSTEM_Initialize(void)
     ADC_Initialization();
     SYSTEM_CORCONModeOperatingSet(CORCON_MODE_PORVALUES);
     phaseControl_Initialize();
+    PID_Initialize();
+    
 }
 
 /**

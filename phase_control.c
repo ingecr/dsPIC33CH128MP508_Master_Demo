@@ -40,7 +40,7 @@ void phaseControl_handler(void){
                 TRIAC_TRIGGER_SetLow();
         #endif    
     }
-    if(phase_obj.accumulate_counts >= 4055 ){
+    if(phase_obj.accumulate_counts >= 4055 ){       /*El 4055 es arbitrario,modificar si es necesario*/
         
         #if MOSFET
                 TRIAC_TRIGGER_SetLow();
@@ -62,7 +62,7 @@ void TMR1_Handler(void){
 }
 void phaseControl_SetReference(uint16_t phaseReference){
 
-    phase_obj.phase_reference = phaseReference;
+    phase_obj.phase_reference = 4096 - phaseReference;      /*Es necesario invertir el valor recibido por el PID*/
 
 }
 
@@ -71,7 +71,11 @@ void phaseControl_Initialize(void){
     phase_obj.accumulate_counts = 0;
     phase_obj.negativeDutyCycle = 0;
     phase_obj.phase_reference   = 4000;
-   
+    
+    
+    /* Es necesario asignar una funcion Handler para el TMR1
+     * En caso de no ser llamada esta funcion se asignara por default TMR1_Call() (tmr1.c)  
+     */
     TMR1_SetInterruptHandler(&TMR1_Handler);
 }
 

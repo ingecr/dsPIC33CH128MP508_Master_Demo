@@ -20,7 +20,7 @@ void get_MAX31855_temperatures(uint16_t* thermocoupleTemp, uint16_t* internalTem
     int i;
     for(i = 0; i < MAX31855_BYTES/2; i++){
         MAX31855_dataBuffer[i] = SPI1_Exchange16bit(dummyData);
-        //MAX31855_dataBuffer[i] = ((MAX31855_dataBuffer[i]<<8)&0xff00)|((MAX31855_dataBuffer[i]>8)&0x00ff);
+    
     }
     SS1_OFF();
     *((uint16_t*)thermocoupleTemp)   = MAX31855_dataBuffer[0] >> 5;
